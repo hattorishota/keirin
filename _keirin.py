@@ -1,6 +1,9 @@
+# 参考サイト
+#【機械学習】ニューラルネットワークで競輪予想してみた(データセット準備編)
+# https://qiita.com/GOTOinfinity/items/877fc90168d84d8d1297
 from bs4 import BeautifulSoup
 import requests
-import tqdm.notebook as tqdm
+import tqdm as tqdm
 import time
 import pandas as pd
 import re
@@ -13,21 +16,28 @@ seedURLs = [ createURL(i, j) for i in range(1,2, 1) for j in range(1, 2, 1)]
 seedURLs
 
 def get_race_urls(sourceURLs):
-    #URLを格納するための辞書を定義
+
+    # URLを格納するための辞書を定義
     race_urls = {}
-    #tqdmを使うことでループの進度が表示される
+
+    # tqdmを使うことでループの進度が表示される
     for sourceURL in tqdm.tqdm(sourceURLs):
         try:
-            #リクエストを作成
+            # リクエストを作成
             req = requests.get(sourceURL)
-            #htmlデータを取得
+
+            # htmlデータを取得
             soup = BeautifulSoup(req.content, 'html.parser')
-            #1秒待機
+
+            # 1秒待機
             time.sleep(1)
-            #レース情報のページのURLを取得する
+
+            # レース情報のページのURLを取得する
             race_html = soup.find_all('a', class_='JS_POST_THROW')
+
             for html in race_html:
                 url = html.get('href')
+
                 #"一覧"のURL以外を取得
                 if 'racedetail' in url:
                     race_id = re.sub(r'\D', '', url)
@@ -43,33 +53,35 @@ main_colum = ['予想', '好気合', '総評', '枠番', '車番', '選手名府
 result_colum = ['予想', '着順', '車番', '選手名', '着差', '上り', '決まり手', 'S/B', '勝敗因']
 
 def scrape_race_result(race_urls, pre_race_results={}):
-    #取得途中のデータを途中から読み込む
+
+    # 取得途中のデータを途中から読み込む
     race_results = pre_race_results
+
     for race_id, url in tqdm.tqdm(race_urls.items()):
         if race_id in race_results.keys():
             continue       
         try:
-            #ページ内ののテーブル(表)のhtmlを取得
+            # ページ内ののテーブル(表)のhtmlを取得
             main = pd.read_html(url)
 
-            #レース情報(特徴量データ)のテーブルを取得
+            # レース情報(特徴量データ)のテーブルを取得
             df = main[4][:-1]
             df.columns = main_colum
 
-            #レース結果(教師データ)のテーブルを取得
+            # レース結果(教師データ)のテーブルを取得
             result_table = main[-2]
             result_table.columns = result_colum
             df_result = result_table.loc[ : , ['着順', '車番']]
 
-            #文字列型に変換
+            # 文字列型に変換
             df = df.astype(str)
             df_result = df_result.astype(str)
 
-            #特徴量データと教師データを一つにまとめる
+            # 特徴量データと教師データを一つにまとめる
             df = pd.merge(df_result, df, on='車番', how='left')
             race_results[race_id] = df
 
-            #1秒待機
+            # 1秒待機
             time.sleep(1)
         except IndexError:
             print('IndexError: {}', url)
@@ -80,17 +92,19 @@ def scrape_race_result(race_urls, pre_race_results={}):
         except ValueError:
             print("ValueError: {}", url)
             continue
-        except :
+        except:
             traceback.print_exc()
             break
     return race_results
 
 results = scrape_race_result(race_urls)
 
-#各レースデータの行名をレースIDに変更
+# 各レースデータの行名をレースIDに変更
 for key in results.keys():
     results[key].index = [key]*len(results[key])
-#全データを結合
+
+# 全データを結合
 race_results = pd.concat([results[key] for key in results.keys()], sort=False)
 
+# CSVに出力
 race_results.to_csv("20220101racedata.csv")
