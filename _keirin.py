@@ -7,6 +7,7 @@ import tqdm as tqdm
 import time
 import pandas as pd
 import re
+import traceback
 
 def createURL(month, day):
     url = 'https://keirin.kdreams.jp/racecard/2022/' + str(month).zfill(2) + '/' + str(day).zfill(2) + '/'
