@@ -1,0 +1,323 @@
+/*----------------------------------------------------
+_footer.scss
+----------------------------------------------------*/
+.wrapper {
+
+    .main {
+
+        .contact {
+            position: relative;
+
+            &::before {
+                position: relative;
+                z-index: 1;
+                content: "";
+                background-image: url(../img/common/footer_kv_pc.webp);
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center;
+                display: inline-block;
+                width: 100%;
+                height: 460px;
+            }
+
+            &__inner {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                -webkit-transform: translate(-50%, -50%);
+                -ms-transform: translate(-50%, -50%);
+                z-index: 2;
+                max-width: 800px;
+                width: 80%;
+                margin: 0 auto;
+                display: flex;
+                justify-content: space-between;
+            }
+
+            &__title {
+                color: #FFF;
+                font-size: 48px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: normal;
+            }
+
+            &__subtitle {
+                color: #FFF;
+                font-size: 20px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: normal;
+            }
+
+            &__txt {
+                color: #FFF;
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 30px;
+                margin-top: 30px;
+            }
+
+            &__right {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+
+            &__tel {
+
+                &Box {
+                    display: flex;
+                }
+
+                &Txt {
+                    position: relative;
+                    top: -6px;
+                    color: #FFF;
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 30px;
+                    margin-right: 4px;
+                }
+
+                &Number {
+
+                    &Box {
+
+                        a {
+                            color: #FFF;
+                            font-size: 40px;
+                            font-style: normal;
+                            font-weight: 700;
+                            line-height: 30px;
+                        }
+                    }
+
+                    &Hour {
+                        color: #FFF;
+                        font-size: 16px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: 30px;
+                    }
+                }
+            }
+
+            &__button {
+
+                &Box {
+                    margin-top: 40px;
+
+                    .btn {
+                        width: 308px;
+                        height: 44px;
+                        font-size: 16px;
+                    }
+                }
+
+            }
+        }
+    }
+
+    .footer {
+        background-color: #EDF5F9;
+        padding: 3.6% 5.2% 2.3% 11.2%;
+
+        &__inner {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        &__logo {
+            max-width: 245px;
+            margin-bottom: 20px;
+        }
+
+        &__txt {
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 30px;
+        }
+
+        &__hour {
+            position: relative;
+            top: -6px;
+        }
+
+        &__list {
+            display: flex;
+            align-items: center;
+
+            &--mr4 {
+                margin-right: 4em;
+            }
+
+            &--right {
+                justify-content: flex-end;
+            }
+        }
+
+        &__item {
+            margin-right: 30px;
+
+            &:last-child {
+                margin-right: 0;
+            }
+
+            a {
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 30px;
+            }
+
+            &--mr0 {
+                margin-right: 0;
+            }
+        }
+
+        &__copyright {
+            font-size: 12px;
+            line-height: 30px;
+            text-align: center;
+            margin-top: 27px;
+        }
+    }
+}
+
+@media screen and (max-width: 1374px) {
+
+    .wrapper {
+
+        .footer {
+            padding: 3% 2% 2% 4%;
+
+            &__txt {
+                font-size: 14px;
+            }
+
+            &__list {
+                margin-right: 20px;
+
+                &--mr4 {
+                    margin-right: 4.8em;
+                }
+            }
+
+            &__item {
+
+                a {
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 870px) {
+
+    .wrapper {
+
+        .main {
+
+            .contact {
+
+                &::before {
+                    background-image: url(../img/common/footer_kv_sp.webp);
+                }
+
+                &__inner {
+                    flex-direction: column;
+                    width: 90%;
+                }
+
+                &__leadingBox {
+
+                }
+
+                &__title {
+                    font-size: 25px;
+                    text-align: center;
+                }
+
+                &__subtitle {
+                    font-size: 12px;
+                    text-align: center;
+                }
+
+                &__txt {
+                    font-size: 16px;
+                    line-height: 23px;
+                    margin-top: 25px;
+                    margin-bottom: 37px;
+                }
+
+                &__tel {
+
+                    &Box {
+                        justify-content: center;
+                    } 
+                }
+
+                &__button {
+
+                    &Box {
+                        margin-top: 30px;
+                        
+                        .btn {
+                            width: 100%;
+                            height: 58px;
+                        }
+                    }
+                }
+            }
+        }
+
+        .footer {
+            padding: 40px 20px 13px;
+
+            &__inner {
+                flex-direction: column;
+            }
+
+            &__logo {
+                max-width: 175px;
+            }
+
+            &__txt {
+                font-size: 16px;
+            }
+
+            &__nav {
+                margin-top: 30px;
+            }
+
+            &__list {
+                flex-wrap: wrap;
+
+                &--mr4 {
+                    margin-right: 0;
+                }
+            }
+
+            &__item {
+                width: 50%;
+                margin-right: 0;
+                margin-bottom: 15px;
+
+                a {
+                    font-size: 16px;
+                }
+            }
+
+            &__copyright {
+                margin-top: 25px;
+            }
+        }
+    }
+}
